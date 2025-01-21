@@ -1,0 +1,8 @@
+.todo-create {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 20px;
+}

@@ -1,0 +1,6 @@
+.todo-input {
+  width: 100%;
+  border-bottom: 1px solid lightgrey !important;
+  outline: none;
+  border: none;
+}

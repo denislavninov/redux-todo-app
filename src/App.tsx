@@ -1,12 +1,15 @@
 
 import './App.css'
+import TodoCreate from './components/TodoCreate'
+import TodoList from './components/TodoList'
 
 function App() {
 
 
   return (
     <div>
-      <h1>Redux Project</h1>
+      <TodoCreate />
+      <TodoList />
     </div>
   )
 }

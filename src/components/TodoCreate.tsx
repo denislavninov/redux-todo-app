@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { TodoType } from '../types/Types'
 import { createTodo } from '../redux/todoSlice'
 
-
 function TodoCreate() {
   const dispatch = useDispatch()
   const [newTodo, setNewTodo] = useState<string>("")

@@ -10,7 +10,7 @@ const AuthProfile = () => {
 
   return (
     isAuthenticated && (
-      <div>
+      <div className="profile-info">
         <img src={(user as User)?.picture} alt={(user as User)?.name} />
         <h2>{(user as User)?.name}</h2>
         <p>{(user as User)?.email}</p>

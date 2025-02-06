@@ -8,10 +8,12 @@ import AuthLogout from './components/AuthLogout'
 
 function App() {
   return (
-    <div>
-      <AuthLogin />
-      <AuthProfile />
-      <AuthLogout />
+    <div >
+      <div className="flex-container">
+        <AuthLogin />
+        <AuthProfile />
+        <AuthLogout />
+      </div>
       <TodoCreate />
       <TodoList />
     </div>

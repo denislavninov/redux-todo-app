@@ -5,6 +5,7 @@ export interface TodoInitialState {
 export interface TodoType {
   id: number
   content: string
+  key?: string
 }
 
 export interface User {

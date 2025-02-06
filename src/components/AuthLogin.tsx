@@ -1,10 +1,9 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const AuthLogin = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
 
-  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+  return !isAuthenticated ? <button className="todo-create-button" onClick={() => loginWithRedirect()}>Log In</button> : null;
 };
 
 export default AuthLogin;

@@ -9,5 +9,61 @@ body {
 }
 
 
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.flex-container button {
+  padding: 4px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
 
+.flex-container button:hover {
+  background-color: #e0e0e0;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: auto;
+}
+
+.profile-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  margin-top: 25px;
+}
+
+.profile-info img:hover {
+  transform: scale(1.1);
+}
+
+.profile-info h2,
+.profile-info p {
+  font-size: 12px;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.profile-info:hover h2,
+.profile-info:hover p {
+  opacity: 1;
+}

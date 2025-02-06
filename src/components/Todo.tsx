@@ -18,6 +18,7 @@ function Todo({ todoProps }: TodoProps) {
   const [editable, setEditable] = useState<boolean>(false);
   const [newTodo, setNewTodo] = useState<string>(content)
 
+
   const handleRemoveTodo = () => {
     dispatch(removeTodoById(id))
   }

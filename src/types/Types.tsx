@@ -6,3 +6,9 @@ export interface TodoType {
   id: number
   content: string
 }
+
+export interface User {
+  name: string;
+  email: string;
+  picture: string;
+}

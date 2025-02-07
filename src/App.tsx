@@ -2,16 +2,11 @@
 import './App.css'
 import TodoCreate from './components/TodoCreate'
 import TodoList from './components/TodoList'
-import AuthLogin from './components/AuthLogin'
-import AuthProfile from './components/AuthProfile'
-import AuthLogout from './components/AuthLogout'
-
+import Auth from './components/Auth'
 function App() {
   return (
     <div>
-      <AuthLogin />
-      <AuthProfile />
-      <AuthLogout />
+      <Auth />
       <TodoCreate />
       <TodoList />
     </div>

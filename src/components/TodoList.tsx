@@ -1,11 +1,29 @@
 import Todo from './Todo'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
 import { TodoType } from '../types/Types'
+import { useEffect } from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { app } from '../firebase'; // Ensure this path is correct
+import { setTodos } from '../redux/todoSlice';
+
+const db = getFirestore(app);
 
 function TodoList() {
-  const { todos } = useSelector((state: RootState) =>
-    state.todo)
+  const dispatch = useDispatch();
+  const { todos } = useSelector((state: RootState) => state.todo);
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      const todosCollection = collection(db, "todos");
+      const todoSnapshot = await getDocs(todosCollection);
+      const todoList = todoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      dispatch(setTodos(todoList as TodoType[])); // Redux store'a yükle
+    };
+
+    loadTodos(); // Bileşen yüklendiğinde todo'ları yükle
+  }, [dispatch]);
+
   return (
     <div>
       {todos && todos.map((todo: TodoType) =>

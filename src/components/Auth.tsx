@@ -9,12 +9,12 @@ import { useState } from "react";
 
 const Auth = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
-
+  const [theme, setTheme] = useState(false);
   if (isLoading) {
     return <div>Loading ...</div>;
   }
 
-  const [theme, setTheme] = useState(false);
+
 
   const changeTheme = () => {
     const root: HTMLElement | null = document.getElementById('root');

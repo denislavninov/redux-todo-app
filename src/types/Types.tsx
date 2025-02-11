@@ -3,7 +3,7 @@ export interface TodoInitialState {
 }
 
 export interface TodoType {
-  id: number
+  id: number | string
   content: string
 }
 

@@ -24,10 +24,13 @@ export const todoSlice = createSlice({
           return action.payload;
         }
       });
+    },
+    setTodos: (state: TodoInitialState, action: PayloadAction<TodoType[]>) => {
+      state.todos = action.payload;
     }
   }
 })
 
-export const { createTodo, removeTodoById, updateTodo } = todoSlice.actions
+export const { createTodo, removeTodoById, updateTodo, setTodos } = todoSlice.actions
 
 export default todoSlice.reducer

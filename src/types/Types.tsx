@@ -3,7 +3,12 @@ export interface TodoInitialState {
 }
 
 export interface TodoType {
-  id: number
+  id: number | string
   content: string
+}
 
+export interface User {
+  name: string;
+  email: string;
+  picture: string;
 }

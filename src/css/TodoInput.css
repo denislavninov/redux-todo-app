@@ -3,4 +3,24 @@
   border-bottom: 1px solid lightgrey !important;
   outline: none;
   border: none;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  box-sizing: border-box;
+ 
+}
+
+#root.dark-mode .todo-input {
+ 
+  border-color: #aaa7a7;
+  border-style: solid;
+  border-radius: 4px;
+  background-color: #fbfbfb;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  
 }

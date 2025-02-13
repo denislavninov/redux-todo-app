@@ -19,7 +19,7 @@ function Todo({ todoProps }: TodoProps) {
   const [newTodo, setNewTodo] = useState<string>(content)
 
   const handleRemoveTodo = () => {
-    dispatch(removeTodoById(id))
+    dispatch(removeTodoById(Number(id)))
   }
   const handleSaveTodo = () => {
     const payload = {

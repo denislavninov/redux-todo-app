@@ -1,0 +1,68 @@
+.auth-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.auth-button {
+  background-color: gold;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 2px; 
+  margin-top: 8px;
+  font-weight: 700;
+  width: 20%;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.auth-button:hover {
+  background-color: gold;
+  color: black;
+}
+
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+
+
+.user-image {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  margin-right: 8px;
+}
+.user-name, .user-email {
+  margin: 0; 
+  font-size: 14px; 
+}
+
+.theme-toggle {
+  display: flex;
+  flex-direction: column;
+  margin: auto ;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.icon {
+  font-size: 30px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.theme-toggle-text {
+  font-size: 14px;
+  font-weight: 200;
+  margin-left: 4px;
+}

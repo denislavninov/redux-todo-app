@@ -13,9 +13,8 @@
 }
 
 #root.dark-mode .todo-input {
-  /* border-bottom: 1px solid #555; */
+ 
   border-color: #aaa7a7;
-  /* border-width: 1px; */
   border-style: solid;
   border-radius: 4px;
   background-color: #fbfbfb;

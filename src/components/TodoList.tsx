@@ -4,7 +4,7 @@ import { RootState } from '../redux/store'
 import { TodoType } from '../types/Types'
 import { useEffect } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { app } from '../firebase'; // Ensure this path is correct
+import { app } from '../firebase';
 import { setTodos } from '../redux/todoSlice';
 
 const db = getFirestore(app);
@@ -18,10 +18,10 @@ function TodoList() {
       const todosCollection = collection(db, "todos");
       const todoSnapshot = await getDocs(todosCollection);
       const todoList = todoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      dispatch(setTodos(todoList as TodoType[])); // Redux store'a yükle
+      dispatch(setTodos(todoList as TodoType[]));
     };
 
-    loadTodos(); // Bileşen yüklendiğinde todo'ları yükle
+    loadTodos();
   }, [dispatch]);
 
   return (

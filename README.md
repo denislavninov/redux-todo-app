@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# Redux Todo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a To-Do application built using React, Redux Toolkit, Auth0, Firebase, and TypeScript. Users can add tasks, mark tasks as completed, and delete tasks.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Add, delete, and complete tasks
+- Global state management with Redux Toolkit
+- Authentication with Auth0
+- Data storage with Firebase
+- TypeScript support
+- User-friendly interface
+- Built with Vite for fast development
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Follow these steps to run the project:
 
-- Configure the top-level `parserOptions` property like this:
+1. **Clone the Repository**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+   ```bash
+   git clone https://github.com/denislavninov/redux-todo-app.git
+   cd redux-todo-app
+   ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. **Install Dependencies**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   ```bash
+   npm install
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+3. **Set Up Environment Variables**
+
+   - Add your `.env` file with the necessary Firebase and Auth0 configurations.
+
+4. **Start the Application**
+   ```bash
+   npm start
+   ```
+
+## Usage
+
+- Add a new task by typing in the input field and clicking the "Add" button.
+- Mark tasks as completed by clicking the checkbox.
+- Delete unwanted tasks using the "Delete" button.
+- Log in using authentication to manage your personal tasks.
+
+## Development
+
+- State management is powered by Redux Toolkit.
+- Data is securely stored using Firebase.
+- Authentication is managed through Auth0.
+- TypeScript is used for better error handling and code safety.
+- Built with Vite for a fast and optimized development experience.
+- The UI can be enhanced using CSS-in-JS or Styled Components.
+
+## Contributing
+
+If you would like to contribute, please submit a pull request or create an issue.
+
+## License
+
+This project is licensed under the MIT License.

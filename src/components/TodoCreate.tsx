@@ -8,11 +8,14 @@ import { createTodo } from '../redux/todoSlice';
 import { CSSTransition } from 'react-transition-group';
 import { addDoc } from 'firebase/firestore';
 import { todosCollection } from '../firebase';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function TodoCreate() {
   const dispatch = useDispatch();
   const [newTodo, setNewTodo] = useState<string>("");
   const [showInput, setShowInput] = useState<boolean>(false);
+  const { user, isAuthenticated } = useAuth0();
+
 
   const handleCreateTodo = async () => {
     if (newTodo.trim().length === 0) {
@@ -25,7 +28,10 @@ function TodoCreate() {
       content: newTodo
     };
     dispatch(createTodo(payload));
-    await addDoc(todosCollection, payload);
+    
+    if (isAuthenticated && user) {
+      await addDoc(todosCollection, {...payload, userId: user.sub});
+    }
 
     setNewTodo("");
     setShowInput(false);

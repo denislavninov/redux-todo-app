@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { app } from '../firebase';
 import { setTodos } from '../redux/todoSlice';
+import { CSSTransition } from 'react-transition-group';
+
 
 const db = getFirestore(app);
 
@@ -27,7 +29,10 @@ function TodoList() {
   return (
     <div className='todo-responsive'>
       {todos && todos.map((todo: TodoType) =>
-        <Todo key={todo.id} todoProps={todo} />)}
+        <CSSTransition key={todo.id} timeout={500} classNames="fade">
+          <Todo key={todo.id} todoProps={todo} />
+        </CSSTransition>
+      )}
     </div>
   )
 }

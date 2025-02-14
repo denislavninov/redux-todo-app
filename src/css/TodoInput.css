@@ -9,11 +9,11 @@
   font-size: 16px;
   font-weight: 500;
   box-sizing: border-box;
- 
+  margin: 10px;
+  text-align: center;
 }
 
 #root.dark-mode .todo-input {
- 
   border-color: #aaa7a7;
   border-style: solid;
   border-radius: 4px;

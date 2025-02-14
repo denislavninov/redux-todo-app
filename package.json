@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://denislavninov/redux-todo-app/",
+  "homepage": "https://code2career.github.io/redux-todo-app/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

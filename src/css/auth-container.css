@@ -66,3 +66,31 @@
   font-weight: 200;
   margin-left: 4px;
 }
+
+  
+
+@media (max-width: 640px) {
+  .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .auth-button {
+    margin: auto;
+    margin-top: 10px;
+  }
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .user-details {
+    align-items: center;
+  }
+  .user-image {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+

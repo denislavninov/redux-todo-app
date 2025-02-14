@@ -7,3 +7,21 @@
   margin-top: 10px;
   border-radius: 5px;
 }
+
+@media (max-width: 640px) {
+  .todo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .todo-text {
+    width: 100%;
+  }
+  .todo-buttons {
+    width: 100%;
+  }
+}

@@ -25,7 +25,7 @@ function TodoList() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className='todo-responsive'>
       {todos && todos.map((todo: TodoType) =>
         <Todo key={todo.id} todoProps={todo} />)}
     </div>

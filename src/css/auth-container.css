@@ -20,6 +20,12 @@
   font-weight: 700;
   width: 20%;
   cursor: pointer;
+  margin: auto;
+      align-self: flex-end;
+
+}
+.logged-in {
+  margin-left: 200px ;
 }
 
 .auth-button:hover {
@@ -74,6 +80,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+    
   }
   .auth-button {
     margin: auto;

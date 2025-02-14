@@ -3,13 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
 import { TodoType } from '../types/Types'
 import { useEffect } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { app } from '../firebase';
+import { getDocs } from 'firebase/firestore';
 import { setTodos } from '../redux/todoSlice';
 import { CSSTransition } from 'react-transition-group';
-
-
-const db = getFirestore(app);
+import { todosCollection } from '../firebase';
 
 function TodoList() {
   const dispatch = useDispatch();
@@ -17,9 +14,10 @@ function TodoList() {
 
   useEffect(() => {
     const loadTodos = async () => {
-      const todosCollection = collection(db, "todos");
       const todoSnapshot = await getDocs(todosCollection);
-      const todoList = todoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const todoList = todoSnapshot.docs.map(doc => (doc.data()));
+      console.log('Remove me after test! Todos from DB:, ', todoList);
+
       dispatch(setTodos(todoList as TodoType[]));
     };
 

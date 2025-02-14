@@ -15,5 +15,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const todosCollection = collection(db, "todos");
 
-export { app, db };
+
+export { app, db, todosCollection };

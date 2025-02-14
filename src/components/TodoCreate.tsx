@@ -6,13 +6,15 @@ import { useDispatch } from 'react-redux';
 import { TodoType } from '../types/Types';
 import { createTodo } from '../redux/todoSlice';
 import { CSSTransition } from 'react-transition-group';
+import { addDoc } from 'firebase/firestore';
+import { todosCollection } from '../firebase';
 
 function TodoCreate() {
   const dispatch = useDispatch();
   const [newTodo, setNewTodo] = useState<string>("");
   const [showInput, setShowInput] = useState<boolean>(false);
 
-  const handleCreateTodo = () => {
+  const handleCreateTodo = async () => {
     if (newTodo.trim().length === 0) {
       alert("Todo cannot be empty");
       return;
@@ -23,6 +25,8 @@ function TodoCreate() {
       content: newTodo
     };
     dispatch(createTodo(payload));
+    await addDoc(todosCollection, payload);
+
     setNewTodo("");
     setShowInput(false);
   };

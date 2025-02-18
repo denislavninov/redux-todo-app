@@ -3,28 +3,36 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
 import { TodoType } from '../types/Types'
 import { useEffect } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { app } from '../firebase';
+import { getDocs, query, where } from 'firebase/firestore';
 import { setTodos } from '../redux/todoSlice';
 import { CSSTransition } from 'react-transition-group';
-
-
-const db = getFirestore(app);
+import { todosCollection } from '../firebase';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function TodoList() {
   const dispatch = useDispatch();
   const { todos } = useSelector((state: RootState) => state.todo);
+  const { user, isAuthenticated } = useAuth0();
+
 
   useEffect(() => {
     const loadTodos = async () => {
-      const todosCollection = collection(db, "todos");
-      const todoSnapshot = await getDocs(todosCollection);
-      const todoList = todoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      dispatch(setTodos(todoList as TodoType[]));
+      if (isAuthenticated && user) {
+        const userId = user.sub;
+        const userTodosQuery = query(todosCollection, where("userId", "==", userId));
+        const todoSnapshot = await getDocs(userTodosQuery);
+        const todoList = todoSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        console.log('Remove me after test! User Todos from DB:', todoList);
+
+        dispatch(setTodos(todoList as TodoType[]));
+      }
     };
 
     loadTodos();
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated, user]);
 
   return (
     <div className='todo-responsive'>

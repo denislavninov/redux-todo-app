@@ -1,9 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { User } from "../types/Types";
 import '../css/auth-container.css';
-import { FaMoon } from "react-icons/fa";
-import { CiLight } from "react-icons/ci";
 import { useState } from "react";
+import { FaToggleOff } from "react-icons/fa6";
+import { FaToggleOn } from "react-icons/fa";
+
 
 
 
@@ -17,21 +18,32 @@ const Auth = () => {
 
 
   const changeTheme = () => {
-    const root: HTMLElement | null = document.getElementById('root');
-    if (root) {
-      root.classList.toggle('dark-mode');
-      root.style.backgroundColor = theme ? 'white' : 'black';
-      root.style.color = theme ? 'black' : 'white';
-      setTheme(!theme);
-    }
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    setTheme(!theme);
   }
 
   return (
     <div className="auth-container">
+
       <div className="theme-toggle">
-        {!theme ? <FaMoon className="icon" onClick={changeTheme} /> : <CiLight className="icon" onClick={changeTheme} />}
+        {!theme ? <FaToggleOff className="icon" onClick={changeTheme} /> : <FaToggleOn className="icon" onClick={changeTheme} />}
         <span className="theme-toggle-text">{theme ? 'Dark Mode' : 'Light Mode'}</span>
       </div>
+      <p className="app-description">Organize your tasks efficiently</p>
+      <h1 className="app-title">Todo App</h1>
+
+
+      {!isAuthenticated && (
+        <div className="auth-info">
+          <p className="login-message">
+            <span className="highlight">✨ Log in to save your todos</span>
+            <br />
+            <small>Your tasks will be synced across all your devices</small>
+          </p>
+        </div>
+      )}
+
       <div className="auth-buttons">
         {isAuthenticated ? (
           <>

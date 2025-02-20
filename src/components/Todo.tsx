@@ -32,10 +32,10 @@ function Todo({ todoProps }: TodoProps) {
 
   return (
     <div className='todo'>
-      <div>
+      <div className='todo-text'>
         {editable ? <input type='text' className="todo-input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTodo(e.target.value)} /> : <div>{content}</div>}
       </div>
-      <div>
+      <div className='todo-icons'>
         <IoIosRemoveCircleOutline className='icons' onClick={handleRemoveTodo} />
         {editable ? <FaCheck className='icons' onClick={handleSaveTodo} /> : <FaRegEdit className="icons" onClick={() => setEditable(true)} />}
       </div>

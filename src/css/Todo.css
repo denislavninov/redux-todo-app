@@ -7,13 +7,38 @@
   margin-top: 10px;
   border-radius: 5px;
 }
+.todo-text {
+  width: 80%;
+}
+.todo-icons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
 @media (max-width: 640px) {
   .todo {
-    display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    width: 50%;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .todo-text {
+    width: 100%;
+  }
+  .todo-buttons {
+    width: 20%;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -24,6 +49,4 @@
   .todo-buttons {
     width: 100%;
   }
-  
 }
-

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "../css/TodoInput.css";
 import "../css/TodoCreate.css";
 import "../css/TodoCreateButton.css";
@@ -28,9 +28,9 @@ function TodoCreate() {
       content: newTodo
     };
     dispatch(createTodo(payload));
-    
+
     if (isAuthenticated && user) {
-      await addDoc(todosCollection, {...payload, userId: user.sub});
+      await addDoc(todosCollection, { ...payload, userId: user.sub });
     }
 
     setNewTodo("");
@@ -39,16 +39,29 @@ function TodoCreate() {
 
   return (
     <div className='todo-create'>
-      <button className='todo-create-button' onClick={() => setShowInput(true)}>Create</button>
-      <CSSTransition in={showInput} timeout={500} classNames="fade" unmountOnExit>
+      <button className='todo-create-button' onClick={() => setShowInput(!showInput)}>
+        {showInput ? 'Cancel' : 'Create'}
+      </button>
 
-        <input
-          value={newTodo}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTodo(e.target.value)}
-          className='todo-input' type="text" placeholder='Create Todo...' />
-
+      <CSSTransition
+        in={showInput}
+        timeout={200}
+        classNames="fade"
+        unmountOnExit
+      >
+        <div className='submit-create-btn'>
+          <input
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+            className='todo-input'
+            type="text"
+            placeholder='Create Todo...'
+          />
+          <button className='todo-create-button' onClick={handleCreateTodo}>
+            Add
+          </button>
+        </div>
       </CSSTransition>
-      {showInput && <button className='todo-create-button' onClick={handleCreateTodo}>Submit</button>}
     </div>
   );
 }

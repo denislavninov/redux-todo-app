@@ -1,40 +1,38 @@
 .todo-create {
-  width: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  min-height: 60px;
+  position: relative;
+}
+
+.submit-create-btn {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 80px;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
 @media (max-width: 640px) {
   .todo-create {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;  }
+    flex-direction: column-reverse;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: auto;
+    gap: 10px;
+    padding: 10px;
+  }
 
-  .todo-create {
+  .submit-create-btn {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
   }
-  .todo-input {
-    max-width: 100%;
-    width: auto;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    background-color: #f5f5f5;
-    border: none;
-  }
-  
-
 }

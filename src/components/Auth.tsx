@@ -4,13 +4,17 @@ import '../css/auth-container.css';
 import { useState } from "react";
 import { FaToggleOff } from "react-icons/fa6";
 import { FaToggleOn } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 
 
 
 const Auth = () => {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const { todos } = useSelector((state: RootState) => state.todo);
   const [theme, setTheme] = useState(false);
+  const completedTodos = todos.filter((todo) => todo.completed).length;
   if (isLoading) {
     return <div>Loading ...</div>;
   }
@@ -25,6 +29,11 @@ const Auth = () => {
 
   return (
     <div className="auth-container">
+      <div className="task-count-container">
+        <p className="task-count">
+          {completedTodos} of {todos.length} tasks completed
+        </p>
+      </div>
 
       <div className="theme-toggle">
         {!theme ? <FaToggleOff className="icon" onClick={changeTheme} /> : <FaToggleOn className="icon" onClick={changeTheme} />}
@@ -32,6 +41,7 @@ const Auth = () => {
       </div>
       <p className="app-description">Organize your tasks efficiently</p>
       <h1 className="app-title">Todo App</h1>
+
 
 
       {!isAuthenticated && (
@@ -43,6 +53,8 @@ const Auth = () => {
           </p>
         </div>
       )}
+
+
 
       <div className="auth-buttons">
         {isAuthenticated ? (

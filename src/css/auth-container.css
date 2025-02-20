@@ -4,8 +4,9 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 50px;
 }
+
 .auth-buttons {
   display: flex;
   flex-direction: row;
@@ -14,11 +15,13 @@
 
   margin-bottom: 20px;
 }
+
 .user-info {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 .auth-button {
   background-color: gold;
   color: black;
@@ -28,9 +31,8 @@
   margin-top: 8px;
   font-weight: 700;
   cursor: pointer;
-  border-radius: 40px;
-  align-self: flex-end;
 }
+
 .logged-in {
   margin-left: 200px;
 }
@@ -62,6 +64,7 @@
   border-radius: 50%;
   margin-right: 8px;
 }
+
 .user-name,
 .user-email {
   margin: 0;
@@ -136,6 +139,17 @@ body.dark-mode .app-description {
   display: block;
   margin-top: 4px;
   font-size: 0.9rem;
+}
+
+.task-count {
+  font-size: 1rem;
+  color: #666;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+body.dark-mode .task-count {
+  color: #a0a0a0;
 }
 
 body.dark-mode .auth-info {

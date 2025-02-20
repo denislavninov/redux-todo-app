@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
@@ -13,10 +13,10 @@ interface TodoProps {
 }
 
 function Todo({ todoProps }: TodoProps) {
-  const { id, content } = todoProps;
+  const { id, content, completed = false } = todoProps;
   const dispatch = useDispatch();
   const [editable, setEditable] = useState<boolean>(false);
-  const [newTodo, setNewTodo] = useState<string>(content)
+  const [newTodo, setNewTodo] = useState<string>(content);
 
   const handleRemoveTodo = () => {
     dispatch(removeTodoById(Number(id)))
@@ -29,20 +29,43 @@ function Todo({ todoProps }: TodoProps) {
     dispatch(updateTodo(payload))
     setEditable(false)
   }
+  const handleToggleComplete = () => {
+    const payload = {
+      id,
+      content,
+      completed: !completed
+    };
+    dispatch(updateTodo(payload));
+  };
 
   return (
-    <div className='todo'>
+    <div className={`todo ${completed ? 'completed' : ''}`}>
       <div className='todo-text'>
-        {editable ? <input type='text' className="todo-input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTodo(e.target.value)} /> : <div>{content}</div>}
+        <input
+          type="checkbox"
+          checked={completed}
+          onChange={handleToggleComplete}
+          className="todo-checkbox"
+        />
+        {editable ? (
+          <input
+            type='text'
+            className="todo-input"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+        ) : (
+          <span style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+            {content}
+          </span>
+        )}
       </div>
       <div className='todo-icons'>
-        <IoIosRemoveCircleOutline className='icons' onClick={handleRemoveTodo} />
-        {editable ? <FaCheck className='icons' onClick={handleSaveTodo} /> : <FaRegEdit className="icons" onClick={() => setEditable(true)} />}
+        <IoIosRemoveCircleOutline className='icons remove-icon' onClick={handleRemoveTodo} />
+        {editable ? <FaCheck className='icons edit-icon' onClick={handleSaveTodo} /> : <FaRegEdit className="icons edit-icon" onClick={() => setEditable(true)} />}
       </div>
     </div>
-
   )
 }
-
 
 export default Todo

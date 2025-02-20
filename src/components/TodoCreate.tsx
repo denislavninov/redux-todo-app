@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import "../css/TodoInput.css";
 import "../css/TodoCreate.css";
 import "../css/TodoCreateButton.css";
@@ -15,7 +15,7 @@ function TodoCreate() {
   const [newTodo, setNewTodo] = useState<string>("");
   const [showInput, setShowInput] = useState<boolean>(false);
   const { user, isAuthenticated } = useAuth0();
-
+  const nodeRef = useRef(null);
 
   const handleCreateTodo = async () => {
     if (newTodo.trim().length === 0) {
@@ -44,12 +44,13 @@ function TodoCreate() {
       </button>
 
       <CSSTransition
+        nodeRef={nodeRef}
         in={showInput}
         timeout={200}
         classNames="fade"
         unmountOnExit
       >
-        <div className='submit-create-btn'>
+        <div ref={nodeRef} className='submit-create-btn'>
           <input
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}

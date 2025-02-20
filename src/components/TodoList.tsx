@@ -25,7 +25,6 @@ function TodoList() {
           id: doc.id,
           ...doc.data()
         }));
-        console.log('Remove me after test! User Todos from DB:', todoList);
 
         dispatch(setTodos(todoList as TodoType[]));
       }

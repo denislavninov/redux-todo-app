@@ -5,6 +5,7 @@ export interface TodoInitialState {
 export interface TodoType {
   id: number | string
   content: string
+  completed?: boolean
 }
 
 export interface User {

@@ -1,12 +1,25 @@
 .icons {
- 
   cursor: pointer;
   margin-right: 8px;
   transition: all 0.3s ease;
 }
-.icons:hover {
-  color: #a6942a;
-} 
+
 .icons:active {
+  transform: scale(0.95);
+}
+
+.remove-icon:hover {
+  color: #ff4444;
+}
+
+.edit-icon:hover {
+  color: #a6942a;
+}
+
+.remove-icon:active {
+  transform: scale(0.95);
+}
+
+.edit-icon:active {
   transform: scale(0.95);
 }

@@ -7,5 +7,17 @@ export default defineConfig({
   define: {
     "process.env": process.env,
   },
-  base: '/redux-todo-app/'
+  base: "/redux-todo-app/",
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-redux", "@reduxjs/toolkit"],
+          firebase: ["firebase/app", "firebase/firestore"],
+          auth: ["@auth0/auth0-react"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 });

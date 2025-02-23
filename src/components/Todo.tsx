@@ -24,12 +24,11 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleRemoveTodo = async () => {
     try {
-      // Delete from Firebase
+      // ID string olmalı
       const todoRef = doc(todosCollection, String(id));
       await deleteDoc(todoRef);
 
-      // Update Redux state
-      dispatch(removeTodoById(Number(id)));
+      dispatch(removeTodoById(id)); // ID'yi direkt kullan
     } catch (error) {
       console.error('Error deleting todo:', error);
     }
@@ -37,22 +36,16 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleSaveTodo = async () => {
     try {
-      if (!user) return;
+      const todoRef = doc(todosCollection, String(id));
+      await updateDoc(todoRef, {
+        content: newTodo
+      });
 
       const payload = {
         id,
         content: newTodo,
-        userId: user.sub
+        completed
       };
-
-      // Update in Firebase
-      const todoRef = doc(todosCollection, String(id));
-      await updateDoc(todoRef, {
-        content: newTodo,
-        userId: user.sub
-      });
-
-      // Update Redux state
       dispatch(updateTodo(payload));
       setEditable(false);
     } catch (error) {
@@ -62,19 +55,16 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleToggleComplete = async () => {
     try {
-      const payload = {
-        id,
-        content,
-        completed: !completed
-      };
-
-      // Update in Firebase
       const todoRef = doc(todosCollection, String(id));
       await updateDoc(todoRef, {
         completed: !completed
       });
 
-      // Update Redux state
+      const payload = {
+        id,
+        content,
+        completed: !completed
+      };
       dispatch(updateTodo(payload));
     } catch (error) {
       console.error('Error toggling todo completion:', error);

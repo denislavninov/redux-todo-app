@@ -3,7 +3,7 @@ export interface TodoInitialState {
 }
 
 export interface TodoType {
-  id: number | string
+  id: string
   content: string
   completed?: boolean
 }

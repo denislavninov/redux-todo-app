@@ -23,18 +23,29 @@ function TodoCreate() {
       return;
     }
 
-    const payload: TodoType = {
-      id: Math.floor(Math.random() * 99999999),
-      content: newTodo
-    };
-    dispatch(createTodo(payload));
+    try {
+      if (isAuthenticated && user) {
+        // Önce Firebase'e ekleyelim ve ID'yi alalım
+        const docRef = await addDoc(todosCollection, {
+          content: newTodo,
+          completed: false,
+          userId: user.sub
+        });
 
-    if (isAuthenticated && user) {
-      await addDoc(todosCollection, { ...payload, userId: user.sub });
+        // Firebase'den gelen ID ile Redux'a ekleyelim
+        const payload: TodoType = {
+          id: docRef.id, // Firebase'in oluşturduğu ID'yi kullan
+          content: newTodo,
+          completed: false
+        };
+
+        dispatch(createTodo(payload));
+        setNewTodo("");
+        setShowInput(false);
+      }
+    } catch (error) {
+      console.error("Error creating todo:", error);
     }
-
-    setNewTodo("");
-    setShowInput(false);
   };
 
   return (

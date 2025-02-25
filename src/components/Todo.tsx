@@ -7,9 +7,8 @@ import "../css/Icons.css"
 import { TodoType } from '../types/Types';
 import { useDispatch } from 'react-redux';
 import { removeTodoById, updateTodo } from '../redux/todoSlice';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, updateDoc, query, where, getDocs } from 'firebase/firestore';
 import { todosCollection } from '../firebase';
-import { useAuth0 } from "@auth0/auth0-react";
 
 interface TodoProps {
   todoProps: TodoType
@@ -20,13 +19,20 @@ function Todo({ todoProps }: TodoProps) {
   const dispatch = useDispatch();
   const [editable, setEditable] = useState<boolean>(false);
   const [newTodo, setNewTodo] = useState<string>(content);
-  const { user } = useAuth0();
 
   const handleRemoveTodo = async () => {
     try {
-      const todoRef = doc(todosCollection, id);
-      await deleteDoc(todoRef);
-      dispatch(removeTodoById(id));
+      // First query to find the document
+      const q = query(todosCollection, where("content", "==", content));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const docRef = querySnapshot.docs[0].ref;
+        await deleteDoc(docRef);
+        dispatch(removeTodoById(id));
+      } else {
+        console.error('Todo document not found');
+      }
     } catch (error) {
       console.error('Error deleting todo:', error);
     }
@@ -34,18 +40,26 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleSaveTodo = async () => {
     try {
-      const todoRef = doc(todosCollection, id);
-      await updateDoc(todoRef, {
-        content: newTodo
-      });
+      // First query to find the document
+      const q = query(todosCollection, where("content", "==", content));
+      const querySnapshot = await getDocs(q);
 
-      const payload = {
-        id,
-        content: newTodo,
-        completed
-      };
-      dispatch(updateTodo(payload));
-      setEditable(false);
+      if (!querySnapshot.empty) {
+        const docRef = querySnapshot.docs[0].ref;
+        await updateDoc(docRef, {
+          content: newTodo
+        });
+
+        const payload = {
+          id,
+          content: newTodo,
+          completed
+        };
+        dispatch(updateTodo(payload));
+        setEditable(false);
+      } else {
+        console.error('Todo document not found');
+      }
     } catch (error) {
       console.error('Error updating todo:', error);
     }
@@ -53,17 +67,25 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleToggleComplete = async () => {
     try {
-      const todoRef = doc(todosCollection, id);
-      await updateDoc(todoRef, {
-        completed: !completed
-      });
+      // First query to find the document
+      const q = query(todosCollection, where("content", "==", content));
+      const querySnapshot = await getDocs(q);
 
-      const payload = {
-        id,
-        content,
-        completed: !completed
-      };
-      dispatch(updateTodo(payload));
+      if (!querySnapshot.empty) {
+        const docRef = querySnapshot.docs[0].ref;
+        await updateDoc(docRef, {
+          completed: !completed
+        });
+
+        const payload = {
+          id,
+          content,
+          completed: !completed
+        };
+        dispatch(updateTodo(payload));
+      } else {
+        console.error('Todo document not found');
+      }
     } catch (error) {
       console.error('Error toggling todo completion:', error);
     }

@@ -24,11 +24,9 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleRemoveTodo = async () => {
     try {
-      // ID string olmalı
-      const todoRef = doc(todosCollection, String(id));
+      const todoRef = doc(todosCollection, id);
       await deleteDoc(todoRef);
-
-      dispatch(removeTodoById(id)); // ID'yi direkt kullan
+      dispatch(removeTodoById(id));
     } catch (error) {
       console.error('Error deleting todo:', error);
     }
@@ -36,7 +34,7 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleSaveTodo = async () => {
     try {
-      const todoRef = doc(todosCollection, String(id));
+      const todoRef = doc(todosCollection, id);
       await updateDoc(todoRef, {
         content: newTodo
       });
@@ -55,7 +53,7 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleToggleComplete = async () => {
     try {
-      const todoRef = doc(todosCollection, String(id));
+      const todoRef = doc(todosCollection, id);
       await updateDoc(todoRef, {
         completed: !completed
       });

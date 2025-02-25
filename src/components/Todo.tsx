@@ -7,8 +7,9 @@ import "../css/Icons.css"
 import { TodoType } from '../types/Types';
 import { useDispatch } from 'react-redux';
 import { removeTodoById, updateTodo } from '../redux/todoSlice';
-import { deleteDoc, updateDoc, query, where, getDocs } from 'firebase/firestore';
+import { query, where, getDocs, deleteDoc, updateDoc } from 'firebase/firestore';
 import { todosCollection } from '../firebase';
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface TodoProps {
   todoProps: TodoType
@@ -19,19 +20,26 @@ function Todo({ todoProps }: TodoProps) {
   const dispatch = useDispatch();
   const [editable, setEditable] = useState<boolean>(false);
   const [newTodo, setNewTodo] = useState<string>(content);
+  const { user } = useAuth0();
 
   const handleRemoveTodo = async () => {
     try {
-      // First query to find the document
-      const q = query(todosCollection, where("content", "==", content));
+      const q = query(
+        todosCollection,
+        where("userId", "==", user?.sub),
+        where("content", "==", content)
+      );
+
       const querySnapshot = await getDocs(q);
+      console.log('Found todos for deletion:', querySnapshot.size);
 
       if (!querySnapshot.empty) {
         const docRef = querySnapshot.docs[0].ref;
+        console.log('Deleting document:', docRef.id);
         await deleteDoc(docRef);
-        dispatch(removeTodoById(id));
+        dispatch(removeTodoById(String(id)));
       } else {
-        console.error('Todo document not found');
+        console.error('Todo not found for deletion:', { content, userId: user?.sub });
       }
     } catch (error) {
       console.error('Error deleting todo:', error);
@@ -40,25 +48,28 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleSaveTodo = async () => {
     try {
-      // First query to find the document
-      const q = query(todosCollection, where("content", "==", content));
-      const querySnapshot = await getDocs(q);
+      const q = query(
+        todosCollection,
+        where("userId", "==", user?.sub),
+        where("content", "==", content)
+      );
 
+      const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
         const docRef = querySnapshot.docs[0].ref;
         await updateDoc(docRef, {
-          content: newTodo
+          content: newTodo,
+          updatedAt: new Date()
         });
 
-        const payload = {
+        dispatch(updateTodo({
           id,
+          firebaseId: String(id),
           content: newTodo,
-          completed
-        };
-        dispatch(updateTodo(payload));
+          completed,
+          userId: user?.sub || ''
+        }));
         setEditable(false);
-      } else {
-        console.error('Todo document not found');
       }
     } catch (error) {
       console.error('Error updating todo:', error);
@@ -67,27 +78,36 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleToggleComplete = async () => {
     try {
-      // First query to find the document
-      const q = query(todosCollection, where("content", "==", content));
+      const q = query(
+        todosCollection,
+        where("userId", "==", user?.sub),
+        where("content", "==", content)
+      );
+
       const querySnapshot = await getDocs(q);
+      console.log('Found todos:', querySnapshot.size);
 
       if (!querySnapshot.empty) {
         const docRef = querySnapshot.docs[0].ref;
+        console.log('Updating document:', docRef.id);
+
         await updateDoc(docRef, {
-          completed: !completed
+          completed: !completed,
+          updatedAt: new Date()
         });
 
-        const payload = {
+        dispatch(updateTodo({
           id,
+          firebaseId: String(id),
           content,
-          completed: !completed
-        };
-        dispatch(updateTodo(payload));
+          completed: !completed,
+          userId: user?.sub || ''
+        }));
       } else {
-        console.error('Todo document not found');
+        console.error('Todo not found:', { content, userId: user?.sub });
       }
     } catch (error) {
-      console.error('Error toggling todo completion:', error);
+      console.error('Error details:', error);
     }
   };
 

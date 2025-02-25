@@ -25,18 +25,20 @@ function TodoCreate() {
 
     try {
       if (isAuthenticated && user) {
-        // Önce Firebase'e ekleyelim ve ID'yi alalım
+
         const docRef = await addDoc(todosCollection, {
           content: newTodo,
           completed: false,
           userId: user.sub
         });
 
-        // Firebase'den gelen ID ile Redux'a ekleyelim
+
         const payload: TodoType = {
-          id: docRef.id, // Firebase'in oluşturduğu ID'yi kullan
+          id: Math.floor(Math.random() * 100000000),
+          firebaseId: docRef.id,
           content: newTodo,
-          completed: false
+          completed: false,
+          userId: user.sub || ''
         };
 
         dispatch(createTodo(payload));

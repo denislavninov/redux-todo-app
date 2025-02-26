@@ -9,11 +9,16 @@
   height: 40px;
   transition: all 0.3s ease;
   border-radius: 40px;
+  gap: 10px;
 }
 
 .todo-create-button:hover {
   background-color: #ffd700;
   transform: translateY(0);
+}
+
+.todo-create-button:active {
+  gap: 20px;
 }
 
 @media (max-width: 640px) {

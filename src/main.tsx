@@ -6,7 +6,7 @@ import { store } from './redux/store'
 import { Auth0Provider } from '@auth0/auth0-react';
 
 // Debug için tam URL'i konsola yazdıralım
-const redirectUri = "https://redux-todo-app-ivory-one.vercel.app";
+const redirectUri = import.meta.env.VITE_AUTH0_REDIRECT_URI;
 console.log('Redirect URI:', redirectUri);
 
 createRoot(document.getElementById('root')!).render(
@@ -14,7 +14,10 @@ createRoot(document.getElementById('root')!).render(
     domain="dev-gg4q1n6iysfjqaru.us.auth0.com"
     clientId="opZr0Gu3hieNd1xsTws9UVZAsWgVqkfN"
     authorizationParams={{
-      redirect_uri: redirectUri
+      redirect_uri: redirectUri,
+      logoutParams: {
+        returnTo: redirectUri
+      }
     }}
   >
     <Provider store={store}>

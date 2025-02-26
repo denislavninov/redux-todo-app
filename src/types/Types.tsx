@@ -8,6 +8,7 @@ export interface TodoType {
   content: string;
   completed: boolean;
   userId: string;
+  updatedAt?: string | null;
 }
 
 export interface User {

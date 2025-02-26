@@ -24,10 +24,16 @@ function TodoList() {
           );
 
           const todoSnapshot = await getDocs(userTodosQuery);
-          const todoList = todoSnapshot.docs.map(doc => ({
-            ...doc.data(),
-            firebaseId: doc.id
-          }));
+          const todoList = todoSnapshot.docs.map(doc => {
+            const data = doc.data();
+            const updatedAt = data.updatedAt ? data.updatedAt.toDate().toISOString() : null;
+
+            return {
+              ...data,
+              firebaseId: doc.id,
+              updatedAt
+            };
+          });
 
           console.log('Loaded todos:', todoList);
           dispatch(setTodos(todoList as TodoType[]));

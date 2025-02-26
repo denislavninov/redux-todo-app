@@ -3,11 +3,11 @@ export interface TodoInitialState {
 }
 
 export interface TodoType {
-  id: number;
+  id: string;
+  firebaseId: string;
   content: string;
   completed: boolean;
   userId: string;
-  firebaseId?: string;
 }
 
 export interface User {

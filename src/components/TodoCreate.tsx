@@ -17,24 +17,24 @@ function TodoCreate() {
   const { user, isAuthenticated } = useAuth0();
   const nodeRef = useRef(null);
 
-  const handleCreateTodo = async () => {
+  const handleCreateTodo = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (newTodo.trim().length === 0) {
       alert("Todo cannot be empty");
       return;
     }
 
+
     try {
       if (isAuthenticated && user) {
-
         const docRef = await addDoc(todosCollection, {
           content: newTodo,
           completed: false,
           userId: user.sub
         });
 
-
         const payload: TodoType = {
-          id: Math.floor(Math.random() * 100000000),
+          id: docRef.id,
           firebaseId: docRef.id,
           content: newTodo,
           completed: false,
@@ -63,7 +63,11 @@ function TodoCreate() {
         classNames="fade"
         unmountOnExit
       >
-        <div ref={nodeRef} className='submit-create-btn'>
+        <form
+          ref={nodeRef}
+          className='submit-create-btn'
+          onSubmit={handleCreateTodo}
+        >
           <input
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
@@ -71,10 +75,10 @@ function TodoCreate() {
             type="text"
             placeholder='Create Todo...'
           />
-          <button className='todo-create-button' onClick={handleCreateTodo}>
+          <button type="submit" className='todo-create-button'>
             Add
           </button>
-        </div>
+        </form>
       </CSSTransition>
     </div>
   );

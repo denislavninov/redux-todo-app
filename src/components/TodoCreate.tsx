@@ -45,6 +45,19 @@ function TodoCreate() {
         setNewTodo("");
         setShowInput(false);
       }
+      if (!isAuthenticated || !user) {
+        const payload: TodoType = {
+          id: '',
+          firebaseId: '',
+          content: newTodo,
+          completed: false,
+          userId: ''
+        };
+
+        dispatch(createTodo(payload));
+        setNewTodo("");
+      }
+
     } catch (error) {
       console.error("Error creating todo:", error);
     }

@@ -48,9 +48,9 @@ function TodoList() {
 
   return (
     <div className='todo-responsive'>
-      {todos && todos.map((todo: TodoType) =>
-        <CSSTransition key={todo.firebaseId} timeout={500} classNames="fade">
-          <Todo key={todo.firebaseId} todoProps={todo} />
+      {todos && todos.map((todo: TodoType, index: number) =>
+        <CSSTransition key={todo.firebaseId || index} timeout={500} classNames="fade">
+          <Todo todoProps={todo} />
         </CSSTransition>
       )}
     </div>

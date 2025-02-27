@@ -27,7 +27,9 @@
   width: 15px;
   height: 15px;
 }
-
+.todo-responsive {
+  margin-bottom: 60px;
+}
 .todo.completed {
   text-decoration: line-through;
   color: white;

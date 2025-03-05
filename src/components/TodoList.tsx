@@ -14,19 +14,32 @@ function TodoList() {
   const { todos } = useSelector((state: RootState) => state.todo);
   const { user, isAuthenticated } = useAuth0();
 
-
   useEffect(() => {
     const loadTodos = async () => {
-      if (isAuthenticated && user) {
-        const userId = user.sub;
-        const userTodosQuery = query(todosCollection, where("userId", "==", userId));
-        const todoSnapshot = await getDocs(userTodosQuery);
-        const todoList = todoSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+      try {
+        if (isAuthenticated && user) {
+          const userTodosQuery = query(
+            todosCollection,
+            where("userId", "==", user.sub)
+          );
 
-        dispatch(setTodos(todoList as TodoType[]));
+          const todoSnapshot = await getDocs(userTodosQuery);
+          const todoList = todoSnapshot.docs.map(doc => {
+            const data = doc.data();
+            const updatedAt = data.updatedAt ? data.updatedAt.toDate().toISOString() : null;
+
+            return {
+              ...data,
+              firebaseId: doc.id,
+              updatedAt
+            };
+          });
+
+          console.log('Loaded todos:', todoList);
+          dispatch(setTodos(todoList as TodoType[]));
+        }
+      } catch (error) {
+        console.error("Error loading todos:", error);
       }
     };
 
@@ -35,9 +48,9 @@ function TodoList() {
 
   return (
     <div className='todo-responsive'>
-      {todos && todos.map((todo: TodoType) =>
-        <CSSTransition key={todo.id} timeout={500} classNames="fade">
-          <Todo key={todo.id} todoProps={todo} />
+      {todos && todos.map((todo: TodoType, index: number) =>
+        <CSSTransition key={todo.firebaseId || index} timeout={500} classNames="fade">
+          <Todo todoProps={todo} />
         </CSSTransition>
       )}
     </div>

@@ -7,7 +7,7 @@ import "../css/Icons.css"
 import { TodoType } from '../types/Types';
 import { useDispatch } from 'react-redux';
 import { removeTodoById, updateTodo } from '../redux/todoSlice';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { query, where, getDocs, deleteDoc, updateDoc } from 'firebase/firestore';
 import { todosCollection } from '../firebase';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -24,11 +24,24 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleRemoveTodo = async () => {
     try {
-      // ID string olmalı
-      const todoRef = doc(todosCollection, String(id));
-      await deleteDoc(todoRef);
+      if (user?.sub) {
+        const q = query(
+          todosCollection,
+          where("userId", "==", user.sub),
+          where("content", "==", content)
+        );
 
-      dispatch(removeTodoById(id)); // ID'yi direkt kullan
+        const querySnapshot = await getDocs(q);
+        console.log('Found todos for deletion:', querySnapshot.size);
+
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          console.log('Deleting document:', docRef.id);
+          await deleteDoc(docRef);
+        }
+      }
+
+      dispatch(removeTodoById(String(id)));
     } catch (error) {
       console.error('Error deleting todo:', error);
     }
@@ -36,17 +49,30 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleSaveTodo = async () => {
     try {
-      const todoRef = doc(todosCollection, String(id));
-      await updateDoc(todoRef, {
-        content: newTodo
-      });
+      if (user?.sub) {
+        const q = query(
+          todosCollection,
+          where("userId", "==", user.sub),
+          where("content", "==", content)
+        );
 
-      const payload = {
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          await updateDoc(docRef, {
+            content: newTodo,
+            updatedAt: new Date()
+          });
+        }
+      }
+
+      dispatch(updateTodo({
         id,
+        firebaseId: String(id),
         content: newTodo,
-        completed
-      };
-      dispatch(updateTodo(payload));
+        completed,
+        userId: user?.sub || 'local-user'
+      }));
       setEditable(false);
     } catch (error) {
       console.error('Error updating todo:', error);
@@ -55,19 +81,36 @@ function Todo({ todoProps }: TodoProps) {
 
   const handleToggleComplete = async () => {
     try {
-      const todoRef = doc(todosCollection, String(id));
-      await updateDoc(todoRef, {
-        completed: !completed
-      });
+      if (user?.sub) {
+        const q = query(
+          todosCollection,
+          where("userId", "==", user.sub),
+          where("content", "==", content)
+        );
 
-      const payload = {
+        const querySnapshot = await getDocs(q);
+        console.log('Found todos:', querySnapshot.size);
+
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          console.log('Updating document:', docRef.id);
+
+          await updateDoc(docRef, {
+            completed: !completed,
+            updatedAt: new Date()
+          });
+        }
+      }
+
+      dispatch(updateTodo({
         id,
+        firebaseId: String(id),
         content,
-        completed: !completed
-      };
-      dispatch(updateTodo(payload));
+        completed: !completed,
+        userId: user?.sub || 'local-user'
+      }));
     } catch (error) {
-      console.error('Error toggling todo completion:', error);
+      console.error('Error details:', error);
     }
   };
 

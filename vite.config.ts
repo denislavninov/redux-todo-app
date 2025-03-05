@@ -5,7 +5,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   define: {
-    "process.env": process.env,
+    // Make env variables available in your client code
+    // No need for process.env as Vite uses import.meta.env
   },
   build: {
     rollupOptions: {

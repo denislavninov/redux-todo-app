@@ -5,19 +5,20 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import { Auth0Provider } from '@auth0/auth0-react';
 
-// Debug için tam URL'i konsola yazdıralım
-const redirectUri = import.meta.env.VITE_AUTH0_REDIRECT_URI;
-console.log('Redirect URI:', redirectUri);
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+const redirectUri = window.location.origin;
 
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
   <Auth0Provider
-    domain="dev-gg4q1n6iysfjqaru.us.auth0.com"
-    clientId="opZr0Gu3hieNd1xsTws9UVZAsWgVqkfN"
+    domain={domain}
+    clientId={clientId}
     authorizationParams={{
-      redirect_uri: window.location.origin,
-      audience: "https://dev-gg4q1n6iysfjqaru.us.auth0.com/api/v2/",
+      redirect_uri: redirectUri,
+      audience: audience,
       scope: "openid profile email"
     }}
   >

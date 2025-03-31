@@ -35,7 +35,7 @@ Follow these steps to run the project:
 
 4. **Start the Application**
    ```bash
-   npm start
+   npm run dev
    ```
 
 ## Usage

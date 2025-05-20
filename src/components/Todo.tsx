@@ -7,20 +7,18 @@ import "../css/Icons.css"
 import { TodoType } from '../types/Types';
 import { useDispatch } from 'react-redux';
 import { removeTodoById, updateTodo } from '../redux/todoSlice';
-import { query, where, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
+import { deleteDoc, updateDoc, doc } from 'firebase/firestore';
 import { todosCollection } from '../firebase';
-import { useAuth0 } from "@auth0/auth0-react";
 
 interface TodoProps {
   todoProps: TodoType
 }
 
 function Todo({ todoProps }: TodoProps) {
-  const { id, content, completed = false } = todoProps;
+  const { content, completed = false } = todoProps;
   const dispatch = useDispatch();
   const [editable, setEditable] = useState<boolean>(false);
   const [newTodo, setNewTodo] = useState<string>(content);
-  const { user } = useAuth0();
 
   const handleRemoveTodo = async () => {
     try {

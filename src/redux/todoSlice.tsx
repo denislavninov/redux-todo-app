@@ -14,11 +14,11 @@ export const todoSlice = createSlice({
       state.todos = [...state.todos, action.payload]
     },
     removeTodoById: (state: TodoInitialState, action: PayloadAction<string>) => {
-      state.todos = [...state.todos.filter((todo: TodoType) => todo.id !== action.payload)]
+      state.todos = state.todos.filter((todo: TodoType) => todo.firebaseId !== action.payload)
     },
     updateTodo: (state: TodoInitialState, action: PayloadAction<TodoType>) => {
       state.todos = state.todos.map((todo: TodoType) => {
-        if (todo.id !== action.payload.id) {
+        if (todo.firebaseId !== action.payload.firebaseId) {
           return todo;
         } else {
           return action.payload;

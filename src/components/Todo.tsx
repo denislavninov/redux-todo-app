@@ -21,10 +21,10 @@ function Todo({ todoProps }: TodoProps) {
   const [newTodo, setNewTodo] = useState<string>(content);
 
   const handleRemoveTodo = async () => {
+    dispatch(removeTodoById(todoProps.firebaseId));
     try {
       if (todoProps.firebaseId) {
         await deleteDoc(doc(todosCollection, todoProps.firebaseId));
-        dispatch(removeTodoById(todoProps.firebaseId));
       }
     } catch (error) {
       console.error('Error deleting todo:', error);
@@ -32,17 +32,17 @@ function Todo({ todoProps }: TodoProps) {
   };
 
   const handleSaveTodo = async () => {
+    dispatch(updateTodo({
+      ...todoProps,
+      content: newTodo
+    }));
+    setEditable(false);
     try {
       if (todoProps.firebaseId) {
         await updateDoc(doc(todosCollection, todoProps.firebaseId), {
           content: newTodo,
           updatedAt: new Date()
         });
-        dispatch(updateTodo({
-          ...todoProps,
-          content: newTodo
-        }));
-        setEditable(false);
       }
     } catch (error) {
       console.error('Error updating todo:', error);
@@ -50,16 +50,16 @@ function Todo({ todoProps }: TodoProps) {
   };
 
   const handleToggleComplete = async () => {
+    dispatch(updateTodo({
+      ...todoProps,
+      completed: !completed
+    }));
     try {
       if (todoProps.firebaseId) {
         await updateDoc(doc(todosCollection, todoProps.firebaseId), {
           completed: !completed,
           updatedAt: new Date()
         });
-        dispatch(updateTodo({
-          ...todoProps,
-          completed: !completed
-        }));
       }
     } catch (error) {
       console.error('Error details:', error);

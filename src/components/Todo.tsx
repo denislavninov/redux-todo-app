@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { IoIosRemoveCircleOutline } from "react-icons/io";
-import { FaCheck } from "react-icons/fa";
-import { FaRegEdit } from "react-icons/fa";
+import { FaCheck, FaRegEdit } from "react-icons/fa";
 import "../css/Todo.css"
 import "../css/Icons.css"
 import { TodoType } from '../types/Types';

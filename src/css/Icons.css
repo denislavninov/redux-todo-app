@@ -6,14 +6,15 @@
 
 .icons:active {
   transform: scale(0.95);
+  filter: drop-shadow(0 2px 4px rgba(27, 66, 139, 0.1));
 }
 
 .remove-icon:hover {
-  color: #ff4444;
+  color: #ed7b3b;
 }
 
 .edit-icon:hover {
-  color: #a6942a;
+  color: #1b428b;
 }
 
 .remove-icon:active {
@@ -22,4 +23,19 @@
 
 .edit-icon:active {
   transform: scale(0.95);
+}
+
+body.dark-mode .icons,
+body.dark-mode .icons * {
+  color: #111111 !important;
+  fill: #111111 !important;
+  opacity: 0.95 !important;
+}
+body.dark-mode .remove-icon:hover {
+  color: #e42276 !important;
+  fill: #e42276 !important;
+}
+body.dark-mode .edit-icon:hover {
+  color: #4f5b9b !important;
+  fill: #4f5b9b !important;
 }

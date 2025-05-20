@@ -1,20 +1,23 @@
 .todo-create-button {
   padding: 8px 16px;
   border: none;
-  background-color: gold;
+  background-color: #1b428b;
+  color: #fff;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 24px;
   font-weight: 700;
   min-width: 100px;
   height: 40px;
   transition: all 0.3s ease;
-  border-radius: 40px;
   gap: 10px;
+  box-shadow: 0 2px 8px rgba(27, 66, 139, 0.1);
 }
 
 .todo-create-button:hover {
-  background-color: #ffd700;
-  transform: translateY(0);
+  background-color: #47245e;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(71, 36, 94, 0.18);
+  transform: translateY(-2px) scale(1.03);
 }
 
 .todo-create-button:active {

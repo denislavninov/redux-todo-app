@@ -1,34 +1,32 @@
 .todo-input {
   width: 100%;
   outline: none;
-  border: none;
-  border-bottom: 1px solid lightgrey;
-  background-color: white;
-  color: #333;
+  border: 2px solid #1b428b;
+  background-color: #fff;
+  color: #1b428b;
   padding: 8px 16px;
   font-size: 16px;
   font-weight: 500;
   box-sizing: border-box;
   text-align: left;
-  border-radius: 4px;
+  border-radius: 24px;
   height: 40px;
   transition: all 0.3s ease;
-  border-radius: 40px;
   margin: 10px 0;
 }
 
 body.dark-mode .todo-input {
-  background-color: #2d2d2d;
-  color: #e0e0e0;
-  border-color: #404040;
+  background-color: #47245e;
+  color: #f3aec2;
+  border-color: #633f71;
 }
 
 .todo-input:focus {
-  border-color: #ffd700;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: #e42276;
+  box-shadow: 0 2px 8px rgba(228, 34, 118, 0.1);
 }
 
 body.dark-mode .todo-input:focus {
-  border-color: #ffd700;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-color: #e42276;
+  box-shadow: 0 2px 8px rgba(228, 34, 118, 0.18);
 }

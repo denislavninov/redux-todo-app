@@ -9,16 +9,16 @@
   font-weight: 500;
   box-sizing: border-box;
   text-align: left;
-  border-radius: 24px;
+  border-radius: 14px;
   height: 40px;
   transition: all 0.3s ease;
   margin: 10px 0;
 }
 
 body.dark-mode .todo-input {
-  background-color: #47245e;
-  color: #f3aec2;
-  border-color: #633f71;
+  background-color: #eae9f3;
+  color: #1b428b;
+  border-color: #1b428b;
 }
 
 .todo-input:focus {

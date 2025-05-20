@@ -29,21 +29,17 @@ const Auth = () => {
 
   return (
     <div className="auth-container">
+      <div className="theme-toggle">
+        {!theme ? <FaToggleOff className="icon" onClick={changeTheme} /> : <FaToggleOn className="icon" onClick={changeTheme} />}
+        <span className="theme-toggle-text">{theme ? 'Dark Mode' : 'Light Mode'}</span>
+      </div>
       <div className="task-count-container">
         <p className="task-count">
           {completedTodos} of {todos.length} tasks completed
         </p>
       </div>
-
-      <div className="theme-toggle">
-        {!theme ? <FaToggleOff className="icon" onClick={changeTheme} /> : <FaToggleOn className="icon" onClick={changeTheme} />}
-        <span className="theme-toggle-text">{theme ? 'Dark Mode' : 'Light Mode'}</span>
-      </div>
       <p className="app-description">Organize your tasks efficiently</p>
       <h1 className="app-title">Todo App</h1>
-
-
-
       {!isAuthenticated && (
         <div className="auth-info">
           <p className="login-message">
@@ -53,27 +49,19 @@ const Auth = () => {
           </p>
         </div>
       )}
-
-
-
       <div className="auth-buttons">
         {isAuthenticated ? (
           <>
-
             <div className="user-info">
-
               <img src={(user as User)?.picture} alt={(user as User)?.name} className="user-image" />
               <div className="user-details">
                 <h2 className="user-name">{(user as User)?.name}</h2>
                 <p className="user-email">{(user as User)?.email}</p>
               </div>
             </div>
-
-
             <button className="auth-button logged-in" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
               Log Out
             </button>
-
           </>
         ) : (
           <button className="auth-button" onClick={() => loginWithRedirect()}>
@@ -81,7 +69,6 @@ const Auth = () => {
           </button>
         )}
       </div>
-
     </div>
   );
 };

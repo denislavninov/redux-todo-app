@@ -9,10 +9,9 @@
 
 .auth-buttons {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-
+  gap: 10px;
   margin-bottom: 20px;
 }
 
@@ -20,6 +19,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 1.2rem;
+  margin: 20px auto;
+  justify-content: center;
+
+  max-width: 420px;
+  border: 1.5px solid #1b428b;
+  border-radius: 18px;
+  padding: 18px 24px;
+  background: #eae9f3;
+  color: #1b428b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(27, 66, 139, 0.08);
 }
 
 .auth-button {
@@ -38,14 +51,15 @@
   margin-top: 0;
 }
 
-.logged-in {
-  margin-left: 200px;
+.auth-button.logged-in {
+  background-color: #e42276;
+  color: #fff;
 }
 
-.auth-button:hover {
-  background-color: #47245e;
+.auth-button.logged-in:hover {
+  background-color: #c2185b;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(71, 36, 94, 0.18);
+  box-shadow: 0 4px 16px rgba(228, 34, 118, 0.18);
   transform: translateY(-2px) scale(1.03);
 }
 
@@ -57,19 +71,29 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 2px;
 }
 
 .user-image {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  margin-right: 8px;
+  margin-right: 12px;
+  border: 2px solid #f6ae7f;
+  box-shadow: 0 2px 8px rgba(246, 174, 127, 0.1);
 }
 
-.user-name,
-.user-email {
+.user-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1b428b;
   margin: 0;
-  font-size: 14px;
+}
+
+.user-email {
+  font-size: 0.98rem;
+  color: #47245e;
+  margin: 0;
 }
 
 .theme-toggle {
@@ -178,12 +202,17 @@ body.dark-mode .login-message small {
     margin-top: 10px;
   }
   .user-info {
-    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
+    padding: 12px 8px;
+    font-size: 1rem;
+    max-width: 98vw;
+    margin: 16px auto;
   }
   .user-details {
     align-items: center;
+    width: 100%;
   }
   .user-image {
     margin-right: 0;
